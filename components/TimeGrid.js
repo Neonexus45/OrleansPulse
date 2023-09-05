@@ -5,10 +5,9 @@ import TimeIndex from './TimeIndex';
 const DayColumn = ({ day }) => {
     return (
         <View style={styles.dayColumn}>
-            <Text>{`Day ${day}`}</Text>
+            <Text style={styles.daytext}>{`${day + 1}`}</Text>
             {[...Array(24).keys()].map((hour) => (
                 <View key={hour} style={styles.timeSlot}>
-                    <Text>Time Slot</Text>
                 </View>
             ))}
         </View>
@@ -20,7 +19,7 @@ const TimeGrid = () => {
 
     const loadMoreDays = () => {
         const lastLoadedDay = loadedDays[loadedDays.length - 1];
-        const newDays = [...Array(10).keys()].map((day) => lastLoadedDay + day + 1);
+        const newDays = [...Array(30).keys()].map((day) => lastLoadedDay + day + 1);
         setLoadedDays([...loadedDays, ...newDays]);
     };
 
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
         width: 50,
     },
     dayColumn: {
-        width: 100,
+        width: Dimensions.get('window').width / 8,
     },
     timeSlot: {
         borderWidth: 0.25,
@@ -66,6 +65,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    daytext: {
+        justifyContent: "center",
+        textAlign: "center",
+        fontWeight: 'bold',
+    }
 });
 
 export default TimeGrid;

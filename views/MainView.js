@@ -34,17 +34,18 @@ const MainView = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#ffffff',
     },
     header: {
-        marginTop: 32,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 25,
-        backgroundColor: '#FFF',
+        backgroundColor: '#5ebce8',
         borderBottomWidth: 1,
         borderBottomColor: '#CCC',
+        borderRadius: 5,
+        marginBottom: 10,
     },
     headerText: {
         fontSize: 24,
