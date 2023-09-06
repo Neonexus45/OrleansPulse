@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { FiliereProvider } from './Contexts/FiliereContext';
 
 import MainView from './views/MainView';
 import Settings from './views/Settings';
@@ -10,6 +11,7 @@ const Stack = createStackNavigator();
 
 const App = () => {
   return (
+      <FiliereProvider>
       <View style={{flex:1}}>
       <StatusBar
           backgroundColor='#5ebce8'
@@ -22,6 +24,7 @@ const App = () => {
         </Stack.Navigator>
       </NavigationContainer>
       </View>
+        </FiliereProvider>
   );
 };
 

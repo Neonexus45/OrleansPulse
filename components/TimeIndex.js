@@ -21,7 +21,7 @@ const TimeIndex = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: Dimensions.get('window').height/15,
+        marginTop: Dimensions.get('window').height/12 + Dimensions.get('window').height / 64 - Dimensions.get('window').height / 100,
         flex: 1,
     },
     hourBlock: {
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         color: 'grey',
         marginLeft: 5,
         marginRight: 5,
+        fontSize: 12,
     },
     gridstyle: {
         height: 50,

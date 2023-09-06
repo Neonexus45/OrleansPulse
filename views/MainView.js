@@ -1,31 +1,36 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import DayMessage from "../components/DayMessage";
-import TimeIndex from "../components/TimeIndex";
 import TimeGrid from "../components/TimeGrid";
+import {useNavigation} from "@react-navigation/native";
 
 const MainView = () => {
+
+    const [resetScroll, setResetScroll] = useState(false);
+    const navigation = useNavigation();
+
+    const resetScrollToToday = () => {
+        setResetScroll(true);
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.messageContainer}>
-                <DayMessage />
+                    <DayMessage />
                 </View>
                 <View style={styles.iconContainer}>
-                    <TouchableOpacity>
-                        <MaterialIcons name="today" size={24} color="black" />
+                    <TouchableOpacity onPress={resetScrollToToday}>
+                        <MaterialIcons name="today" size={32} color="black" />
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <MaterialIcons name="autorenew" size={24} color="black" />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                         <MaterialIcons name="settings" size={24} color="black" />
                     </TouchableOpacity>
                 </View>
             </View>
             <ScrollView>
-                <TimeGrid />
+                <TimeGrid shouldResetScroll={resetScroll} setShouldResetScroll={setResetScroll} />
             </ScrollView>
         </View>
     );
@@ -45,27 +50,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#CCC',
         borderRadius: 5,
-        marginBottom: 10,
-    },
-    headerText: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    iconContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: 100,
-        flex: 1,
+
     },
     messageContainer: {
         flex: 2,
     },
-    gridContainer: {
-        flex: 1, // Takes up most of the horizontal space
-    },
-    timeIndexContainer: {
-        width: 100, // Fixed width for TimeIndex
-        backgroundColor: '#f0f0f0',
+    iconContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 75,
+        marginLeft: 10,
     },
 });
 
