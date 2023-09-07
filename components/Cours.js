@@ -2,8 +2,6 @@ import React, {memo} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {getColorFromHash, hashString} from '../utils/helpers';
 
-
-
 const Cours = ({ startTime, endTime, courseName, group, location }) => {
     const startHour = new Date(startTime).getHours();
     const startMinutes = new Date(startTime).getMinutes();

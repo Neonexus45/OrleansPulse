@@ -16,48 +16,44 @@ const DayColumn = ({ day, month, year, courses }) => {
 
     return (
         <View style={styles.dayColumn}>
-            <ScrollView>
-                <View style={styles.dayLabel} ref={dayLabelRef}>
-                    <Text style={styles.daytext}>{`${dayLetter} ${String(day).padStart(2, '0')}/${String(month + 1).padStart(2, '0')}`}</Text>
-                </View>
-                <View style={{ position: 'relative', height: '100%' }}>
-                    {timeSlotPosition !== null &&
-                        <View style={{
-                            position: 'absolute',
-                            height: 2,
-                            backgroundColor: 'orange',
-                            width: '100%',
-                            top: timeSlotPosition + (today.getMinutes() / 60) * (Dimensions.get('window').height / 12),
-                            zIndex: 9999,
-                        }} />
-                    }
-                    {courses.map((course, index) => (
-                        <Cours
-                            key={index}
-                            startTime={course.startTime}
-                            endTime={course.endTime}
-                            courseName={course.courseName}
-                            group={course.group}
-                            location={course.location}
-                        />
-                    ))}
-                    <ScrollView nestedScrollEnabled>
-                        {[...Array(24).keys()].map((hour) => (
-                            <View
-                                key={hour}
-                                onLayout={(event) => {
-                                    const layout = event.nativeEvent.layout;
-                                    if (isToday && hour === today.getHours()) {
-                                        setTimeSlotPosition(layout.y);
-                                    }
-                                }}
-                                style={[styles.timeSlot, isToday ? { backgroundColor: '#E4E4E4', elevation: 1, position: 'relative' } : {}]}
-                            >
-                            </View>
-                        ))}
-                    </ScrollView>
-                </View>
-            </ScrollView>
+            <View style={styles.dayLabel} ref={dayLabelRef}>
+                <Text style={styles.daytext}>{`${dayLetter} ${String(day).padStart(2, '0')}/${String(month + 1).padStart(2, '0')}`}</Text>
+            </View>
+            <View style={{ position: 'relative', height: '100%' }}>
+                {timeSlotPosition !== null &&
+                    <View style={{
+                        position: 'absolute',
+                        height: 2,
+                        backgroundColor: 'orange',
+                        width: '100%',
+                        top: timeSlotPosition + (today.getMinutes() / 60) * (Dimensions.get('window').height / 12),
+                        zIndex: 9999,
+                    }} />
+                }
+                {courses.map((course, index) => (
+                    <Cours
+                        key={index}
+                        startTime={course.startTime}
+                        endTime={course.endTime}
+                        courseName={course.courseName}
+                        group={course.groups}
+                        location={course.location}
+                    />
+                ))}
+                {[...Array(24).keys()].map((hour) => (
+                    <View
+                        key={hour}
+                        onLayout={(event) => {
+                            const layout = event.nativeEvent.layout;
+                            if (isToday && hour === today.getHours()) {
+                                setTimeSlotPosition(layout.y);
+                            }
+                        }}
+                        style={[styles.timeSlot, isToday ? { backgroundColor: '#E4E4E4', elevation: 1, position: 'relative' } : {}]}
+                    >
+                    </View>
+                ))}
+            </View>
         </View>
     );
 };
