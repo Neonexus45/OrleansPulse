@@ -4,6 +4,7 @@ import {Button, ScrollView, StyleSheet, TextInput, View} from "react-native";
 import { fetchGroupsFromIcs } from '../services/fetchSchedule';
 import { CheckBox } from 'react-native-elements';
 import {useNavigation} from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Settings = () => {
 
@@ -25,6 +26,8 @@ const Settings = () => {
         loadPreviouslySavedSettings();
     }, []);
 
+
+
     useEffect(() => {
         if (filiere) {
             console.log("Fetching for filiere:", filiere);
@@ -38,8 +41,13 @@ const Settings = () => {
         }
     }, [filiere]);
 
-    const handleSave = () => {
-        saveSettings({ groups, filiere });
+    const handleSave = async () => {
+        await saveSettings({ groups, filiere });
+        try {
+            await AsyncStorage.removeItem('scheduleData');
+        } catch (e) {
+            console.error('Failed to remove cached data:', e);
+        }
         navigation.navigate('MainView');
     };
 

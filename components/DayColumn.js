@@ -1,9 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, {useRef, PureComponent, useState} from 'react';
 import {View, Text, FlatList, ScrollView, Dimensions, StyleSheet} from 'react-native';
 import {getDayLetter} from "../utils/helpers";
 import Cours from "./Cours";
 
 const DayColumn = ({ day, month, year, courses }) => {
+
+    const [timeSlotPosition, setTimeSlotPosition] = useState(null);
+
     const dayLabelRef = useRef(null);
 
     const today = new Date();
@@ -18,6 +21,16 @@ const DayColumn = ({ day, month, year, courses }) => {
                     <Text style={styles.daytext}>{`${dayLetter} ${String(day).padStart(2, '0')}/${String(month + 1).padStart(2, '0')}`}</Text>
                 </View>
                 <View style={{ position: 'relative', height: '100%' }}>
+                    {timeSlotPosition !== null &&
+                        <View style={{
+                            position: 'absolute',
+                            height: 2,
+                            backgroundColor: 'orange',
+                            width: '100%',
+                            top: timeSlotPosition + (today.getMinutes() / 60) * (Dimensions.get('window').height / 12),
+                            zIndex: 9999,
+                        }} />
+                    }
                     {courses.map((course, index) => (
                         <Cours
                             key={index}
@@ -28,23 +41,21 @@ const DayColumn = ({ day, month, year, courses }) => {
                             location={course.location}
                         />
                     ))}
-                <ScrollView nestedScrollEnabled>
-                    {[...Array(24).keys()].map((hour) => (
-                        <View key={hour} style={[styles.timeSlot, isToday ? { backgroundColor: '#E4E4E4' } : {}]}>
-                            {isToday && hour === today.getHours() &&
-                                <View style={{
-                                    position: 'absolute',
-                                    height: 2,
-                                    backgroundColor: 'orange',
-                                    width: '100%',
-                                    top: (today.getMinutes() / 60) * (Dimensions.get('window').height / 12)
-                                }} />
-                            }
-
-                        </View>
-
-                    ))}
-                </ScrollView>
+                    <ScrollView nestedScrollEnabled>
+                        {[...Array(24).keys()].map((hour) => (
+                            <View
+                                key={hour}
+                                onLayout={(event) => {
+                                    const layout = event.nativeEvent.layout;
+                                    if (isToday && hour === today.getHours()) {
+                                        setTimeSlotPosition(layout.y);
+                                    }
+                                }}
+                                style={[styles.timeSlot, isToday ? { backgroundColor: '#E4E4E4', elevation: 1, position: 'relative' } : {}]}
+                            >
+                            </View>
+                        ))}
+                    </ScrollView>
                 </View>
             </ScrollView>
         </View>

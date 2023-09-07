@@ -39,9 +39,3 @@ export const loadSettings = async () => {
     }
     return null;
 };
-
-export const getMostRecentMonday = () => {
-    const day = date.getDay();
-    const diff = date.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday (0)
-    return new Date(date.setDate(diff));
-}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {getColorFromHash, hashString} from '../utils/helpers';
 
@@ -20,7 +20,7 @@ const Cours = ({ startTime, endTime, courseName, group, location }) => {
     const color = getColorFromHash(hashString(courseName));
 
     return (
-        <View style={[styles.course, { height: totalDuration, top: topPosition, backgroundColor: color }]}>
+        <View style={[styles.course, { height: totalDuration, top: topPosition, backgroundColor: color, zIndex: 2 }]}>
             <Text  style={styles.courseName}>{courseName}</Text>
             {group && <Text  style={styles.courseInfo}>{group}</Text>}
             {location && <Text style={styles.courseInfo}>{location}</Text>}
@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
         fontSize: 5,
         color: '#000000',
         textAlign: 'center',
+
     },
 });
 
-export default Cours;
+export default memo(Cours);
