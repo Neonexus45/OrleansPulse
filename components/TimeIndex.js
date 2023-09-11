@@ -8,14 +8,14 @@ const formatHour = (hour) => {
 };
 const TimeIndex = () => {
     return (
-        <ScrollView style={styles.container} vertical>
+        <View style={styles.container} vertical>
             {[...Array(23).keys()].map((hour) => (
                 <View key={hour + 1} style={styles.hourBlock}>
                     <Text style={styles.hourText}>{`${formatHour(hour + 1)}:00`}</Text>
                 </View>
 
             ))}
-        </ScrollView>
+        </View>
     );
 };
 

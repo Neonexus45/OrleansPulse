@@ -34,8 +34,7 @@ const TimeGrid = ({ shouldResetScroll, setShouldResetScroll, shouldRefresh, setS
             if (mondayIndex !== -1) {
                 scrollViewRef.current?.scrollToIndex({
                     index: mondayIndex,
-                    //offset: mondayIndex * (Dimensions.get('window').width / 8),
-                    animated: false,
+                    animated: true,
                 });
             }
 

@@ -21,6 +21,7 @@
     "node-ical": "^0.16.1",
     "react": "18.2.0",
     "react-native": "0.72.4",
+    "react-native-canvas": "^0.1.39",
     "react-native-elements": "^3.4.3",
     "react-native-fs": "^2.20.0",
     "react-native-nested-scroll-view": "^9.0.0",
