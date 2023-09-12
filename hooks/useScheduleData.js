@@ -16,7 +16,7 @@ export const useScheduleData = (filiere, groups, isFocused) => {
                     setScheduleData(data);
                     processCoursesByDay(data);
                 } else {
-                    const events = await fetchDataAndConvert();
+                    const events = await fetchDataAndConvert(`https://orleanspulse.s3.eu-west-3.amazonaws.com/Ical-${filiere}.ics`);
                     const savedGroups = await loadSettings();
                     const filteredEvents = events.events.filter(event =>
                         event.groups.length === 0 || event.groups.some(group => savedGroups.groups.includes(group))

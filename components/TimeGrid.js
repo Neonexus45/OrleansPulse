@@ -22,6 +22,7 @@ const TimeGrid = ({ shouldResetScroll, setShouldResetScroll, shouldRefresh, setS
         return new Date(date.setDate(diff));
     };
 
+
     useEffect(() => {
         if (shouldResetScroll) {
             const today = new Date();
@@ -59,9 +60,9 @@ const TimeGrid = ({ shouldResetScroll, setShouldResetScroll, shouldRefresh, setS
         loadMoreDays(14);
     }, []);
 
+
     const renderItem = ({ item: date }) => {
         const coursesOnThisDay = coursesByDay[date.toDateString()] || [];
-
         return (
             <DayColumn
                 day={date.getDate()}

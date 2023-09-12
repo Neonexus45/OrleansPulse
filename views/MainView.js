@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native
 import { MaterialIcons } from '@expo/vector-icons';
 import DayMessage from "../components/DayMessage";
 import TimeGrid from "../components/TimeGrid";
-import {useNavigation} from "@react-navigation/native";
+import {useIsFocused, useNavigation} from "@react-navigation/native";
 
 const MainView = () => {
 

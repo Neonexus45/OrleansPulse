@@ -27,7 +27,7 @@ const convertIcsToJson = async (icsString) => {
         const event = new ICAL.Event(vevent);
         const description = event.description.split('\n');
         const groups = description.reduce((acc, line) => {
-            const matches = line.match(/(Gr(?![2 ]*CMI)[a-zA-Z0-9. ]+|L3\/[a-zA-Z0-9. ]+)/g);
+            const matches = line.match(/(Gr(?![2 ]*CMI)[a-zA-Z0-9. ]+|L3\/[a-zA-Z0-9. ]+|Ergonomie|Réathletisation|Santé par le sport|Poly\.\s?[a-zA-Z0-9\s]+)/g);
             if (matches) {
                 acc.push(...matches);
             }
@@ -54,9 +54,9 @@ const convertIcsToJson = async (icsString) => {
     };
 };
 
-export async function fetchDataAndConvert() {
+export async function fetchDataAndConvert(url) {
     try {
-        const icsContent = await fetchIcsFromURL('https://orleanspulse.s3.eu-west-3.amazonaws.com/Ical-L3informatique.ics');
+        const icsContent = await fetchIcsFromURL(url);
         return await convertIcsToJson(icsContent);
     } catch (error) {
         console.error("Error in fetchDataAndConvert:", error);
