@@ -13,6 +13,7 @@ const Settings = () => {
     const [filiere, setFiliere] = useState('');
     const [availableGroups, setAvailableGroups] = useState([]);
     const [open, setOpen] = useState(false);
+    const [initialized, setInitialized] = useState(false);
 
     const navigation = useNavigation();
     const [filiereList, setFiliereList] = useState([
@@ -25,16 +26,22 @@ const Settings = () => {
     useEffect(() => {
         const loadPreviouslySavedSettings = async () => {
             const settings = await loadSettings();
+            console.log(settings);
             if (settings) {
                 setFiliere(settings.filiere || '');
                 setGroups(settings.groups || []);
             }
+            setInitialized(true);
         };
 
         loadPreviouslySavedSettings();
     }, []);
 
     useEffect(() => {
+        if (initialized) {
+            setGroups([]);
+        }
+
         if (filiere) {
             const fetchData = async () => {
                 const jsonData = await fetchDataAndConvert(`https://orleanspulse.s3.eu-west-3.amazonaws.com/Ical-${filiere}.ics`);

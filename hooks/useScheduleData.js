@@ -3,8 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {fetchDataAndConvert} from '../services/ics2Json';
 import {loadSettings} from "../utils/helpers";
 
-export const useScheduleData = (filiere, groups, isFocused) => {
-    const [scheduleData, setScheduleData] = useState([]);
+export const useScheduleData = (isFocused) => {
     const [coursesByDay, setCoursesByDay] = useState({});
 
     useEffect(() => {
@@ -13,17 +12,16 @@ export const useScheduleData = (filiere, groups, isFocused) => {
                 const cachedData = await AsyncStorage.getItem('scheduleData');
                 if (cachedData) {
                     const data = JSON.parse(cachedData);
-                    setScheduleData(data);
                     processCoursesByDay(data);
                 } else {
-                    const events = await fetchDataAndConvert(`https://orleanspulse.s3.eu-west-3.amazonaws.com/Ical-${filiere}.ics`);
-                    const savedGroups = await loadSettings();
+                    const savedSettings = await loadSettings();
+                    console.log(savedSettings);
+                    const events = await fetchDataAndConvert(`https://orleanspulse.s3.eu-west-3.amazonaws.com/Ical-${savedSettings.filiere}.ics`);
                     const filteredEvents = events.events.filter(event =>
-                        event.groups.length === 0 || event.groups.some(group => savedGroups.groups.includes(group))
+                        event.groups.length === 0 || event.groups.some(group => savedSettings.groups.includes(group))
                     );
 
                     await AsyncStorage.setItem('scheduleData', JSON.stringify(filteredEvents));
-                    setScheduleData(filteredEvents);
                     processCoursesByDay(filteredEvents);
                 }
             } catch (error) {
@@ -44,7 +42,7 @@ export const useScheduleData = (filiere, groups, isFocused) => {
         if (isFocused) {
             fetchData();
         }
-    }, [filiere, groups, isFocused]);
+    }, [isFocused]);
 
-    return { scheduleData, coursesByDay };
+    return {coursesByDay};
 };

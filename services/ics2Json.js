@@ -27,7 +27,7 @@ const convertIcsToJson = async (icsString) => {
         const event = new ICAL.Event(vevent);
         const description = event.description.split('\n');
         const groups = description.reduce((acc, line) => {
-            const matches = line.match(/(Gr(?![2 ]*CMI)[a-zA-Z0-9. ]+|L3\/[a-zA-Z0-9. ]+|Ergonomie|Réathletisation|Santé par le sport|Poly\.\s?[a-zA-Z0-9\s]+)/g);
+            const matches = line.match(/(Gr(?![2 ]*CMI)[a-zA-Z0-9. ]+|L3\/[a-zA-Z0-9. ]+|Ergonomie|Réathlétisation|Santé par le sport|Poly\.\s?[a-zA-Z0-9\s]+)/g);
             if (matches) {
                 acc.push(...matches);
             }

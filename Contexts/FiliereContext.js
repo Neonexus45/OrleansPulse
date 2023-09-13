@@ -8,7 +8,7 @@ export const useFiliere = () => {
 };
 
 export const FiliereProvider = ({ children }) => {
-    const [filiere, setFiliere] = useState("L3informatique");
+    const [filiere, setFiliere] = useState();
     const [groups, setGroups] = useState([]);
 
     useEffect(() => {

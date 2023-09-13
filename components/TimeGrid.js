@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Dimensions, FlatList, StyleSheet } from 'react-native';
 import TimeIndex from './TimeIndex';
 import DayColumn from './DayColumn';
-import { useFiliere } from '../Contexts/FiliereContext';
 import {useIsFocused} from "@react-navigation/native";
 import {useScheduleData} from "../hooks/useScheduleData";
 
@@ -10,11 +9,11 @@ const TimeGrid = ({ shouldResetScroll, setShouldResetScroll, shouldRefresh, setS
     const [loadedDays, setLoadedDays] = useState([]);
     const startDate = new Date(2023, 8, 1);
     const scrollViewRef = useRef();
+    const [forceRefresh, setForceRefresh] = useState(false);
 
-    const { filiere, groups } = useFiliere();
-    const isFocused = useIsFocused();
+    let isFocused = useIsFocused();
 
-    const { scheduleData, coursesByDay } = useScheduleData(filiere, groups, isFocused);
+    const { coursesByDay } = useScheduleData(isFocused || forceRefresh);
 
     const getMostRecentMonday = (date) => {
         const day = date.getDay();
@@ -43,6 +42,12 @@ const TimeGrid = ({ shouldResetScroll, setShouldResetScroll, shouldRefresh, setS
         }
     }, [shouldResetScroll, loadedDays]);
 
+    useEffect(() => {
+        if (shouldRefresh) {
+            setForceRefresh(true)
+            setShouldRefresh(false);
+        }
+    } , [shouldRefresh]);
     const loadMoreDays = (numberOfDays) => {
         let newDays = [];
         let lastDate = loadedDays.length ? new Date(loadedDays[loadedDays.length - 1]) : new Date(startDate);
@@ -87,6 +92,7 @@ const TimeGrid = ({ shouldResetScroll, setShouldResetScroll, shouldRefresh, setS
                 onEndReached={() => {
                     loadMoreDays(14);
                 }}
+                onEndReachedThreshold={0.5}
             />
         </View>
     );
