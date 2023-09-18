@@ -13,7 +13,7 @@ const Cours = ({ startTime, endTime, courseName, group, location }) => {
 
     const timeSlotHeight = Dimensions.get('window').height / 12;
     const totalDuration = (durationHours + durationMinutes / 60) * timeSlotHeight;
-    const topPosition = (startHour + startMinutes / 60) * timeSlotHeight;
+    const topPosition = ((startHour - 7) + startMinutes / 60) * timeSlotHeight;
 
     const color = getColorFromHash(hashString(courseName));
 

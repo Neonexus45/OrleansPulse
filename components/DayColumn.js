@@ -40,12 +40,12 @@ const DayColumn = ({ day, month, year, courses }) => {
                         location={course.location}
                     />
                 ))}
-                {[...Array(24).keys()].map((hour) => (
+                {[...Array(15).keys()].map((hour) => (
                     <View
-                        key={hour}
+                        key={hour + 7}
                         onLayout={(event) => {
                             const layout = event.nativeEvent.layout;
-                            if (isToday && hour === today.getHours()) {
+                            if (isToday && (hour + 7) === today.getHours()) {
                                 setTimeSlotPosition(layout.y);
                             }
                         }}

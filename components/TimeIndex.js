@@ -9,9 +9,9 @@ const formatHour = (hour) => {
 const TimeIndex = () => {
     return (
         <View style={styles.container} vertical>
-            {[...Array(23).keys()].map((hour) => (
-                <View key={hour + 1} style={styles.hourBlock}>
-                    <Text style={styles.hourText}>{`${formatHour(hour + 1)}:00`}</Text>
+            {[...Array(14).keys()].map((hour) => (
+                <View key={hour + 9} style={styles.hourBlock}>
+                    <Text style={styles.hourText}>{`${formatHour(hour + 8)}:00`}</Text>
                 </View>
 
             ))}
