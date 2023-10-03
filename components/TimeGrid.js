@@ -7,7 +7,8 @@ import {useScheduleData} from "../hooks/useScheduleData";
 
 const TimeGrid = ({ shouldResetScroll, setShouldResetScroll, shouldRefresh, setShouldRefresh }) => {
     const [loadedDays, setLoadedDays] = useState([]);
-    const startDate = new Date(2023, 8, 1);
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - 7);
     const scrollViewRef = useRef();
     const [forceRefresh, setForceRefresh] = useState(false);
 

@@ -29,9 +29,9 @@
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.12.1",
     "react-native-modal-dropdown": "^1.0.2",
-    "react-native-reanimated": "^3.5.0",
-    "react-native-safe-area-context": "^4.7.2",
-    "react-native-screens": "^3.25.0",
+    "react-native-reanimated": "~3.3.0",
+    "react-native-safe-area-context": "4.6.3",
+    "react-native-screens": "~3.22.0",
     "rss-parser": "^3.13.0"
   },
   "devDependencies": {

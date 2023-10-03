@@ -3,14 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {fetchDataAndConvert} from '../services/ics2Json';
 import {loadSettings} from "../utils/helpers";
 
-export const useScheduleData = (isFocused) => {
+export const useScheduleData = (isFocused,isForcedRefresh) => {
     const [coursesByDay, setCoursesByDay] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const cachedData = await AsyncStorage.getItem('scheduleData');
-                if (cachedData) {
+                if (cachedData && !isForcedRefresh) {
                     const data = JSON.parse(cachedData);
                     processCoursesByDay(data);
                 } else {

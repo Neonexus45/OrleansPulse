@@ -3,11 +3,17 @@
     "preview": {
       "android": {
         "buildType": "apk"
+      },
+      "ios": {
+        "distribution": "store"
       }
     },
     "preview2": {
       "android": {
         "gradleCommand": ":app:assembleRelease"
+      },
+      "ios": {
+        "distribution": "store"
       }
     },
     "preview3": {
